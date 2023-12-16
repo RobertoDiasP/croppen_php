@@ -10,7 +10,7 @@ class CreateRemessaTable extends Migration
     {
         Schema::create('remessa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id-usuario')->constrained('users');
+            $table->foreignId('id_usuario')->constrained('users');
             $table->date('dataInicio');
             $table->date('dataFim');
             $table->integer('status');

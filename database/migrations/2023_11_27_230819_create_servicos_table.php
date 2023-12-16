@@ -12,7 +12,7 @@ class CreateServicosTable extends Migration
             $table->id();
             $table->string('nome');
             $table->integer('valor');
-            $table->foreignId('id-usuario')->constrained('users');
+            $table->foreignId('id_usuario')->constrained('users');
             $table->timestamps();
         });
     }

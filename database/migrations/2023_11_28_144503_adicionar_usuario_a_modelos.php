@@ -9,14 +9,14 @@ class AdicionarUsuarioAModelos extends Migration
     public function up()
     {
         Schema::table('modelos', function (Blueprint $table) {
-            $table->foreignId('id-usuario')->nullable()->constrained('users');
+            $table->foreignId('id_usuario')->nullable()->constrained('users');
         });
     }
 
     public function down()
     {
         Schema::table('modelos', function (Blueprint $table) {
-            $table->dropColumn('id-usuario'); 
+            $table->dropColumn('id_usuario'); 
         });
     }
 }
