@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-3">
-            <a type="button" class="btn btn-success btn-sm"  href="{{ route('empresaCreate') }}">Nova Empresa</a>
+            <a type="button" class="btn btn-success btn-sm"  href="{{ route('amostraCreate') }}">Nova Empresa</a>
         </div>
     </div>
     <div class="row mt-4 justify-content-end">

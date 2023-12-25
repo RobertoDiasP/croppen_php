@@ -1,44 +1,45 @@
 @extends('welcome')
-@section('title', "Amostra")
+@section('title', "Amostras")
 
 @section('content')
 
 <div class="px-4">
     <div class="card px-4">
-        <h6>
+        <h3>
             Amostras
-        </h6>
-        <div class="row py-2">
+        </h3>
+        <div class="row py-2 mt-4">
             <div class="col-6">
                 <div class="input-group input-group-static mb-4">
-                    <label>Data de</label>
-                    <input type="date" name="nome" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Data Até</label>
-                    <input type="date" name="nome" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Id Interno</label>
+                    <label>Nome</label>
                     <input type="text" name="nome" class="form-control">
                 </div>
             </div>
             <div class="col-6">
                 <div class="input-group input-group-static mb-4">
-                    <label>Id Externo</label>
-                    <input type="text" name="nome" class="form-control">
+                    <label>Razão Social</label>
+                    <input type="text" name="razao_social" class="form-control">
                 </div>
             </div>
+            <div class="col-6">
+                <div class="input-group input-group-static mb-4">
+                    <label>CNPJ</label>
+                    <input type="text" name="cnpj" class="form-control">
+                </div>
+            </div>
+            <div class="col-6">
+               
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+            </div>
+        </div>
+        <div class="col-3">
+            <a type="button" class="btn btn-success btn-sm"  href="{{ route('amostraCreate') }}">Nova Empresa</a>
         </div>
     </div>
     <div class="row mt-4 justify-content-end">
-        <div class="col-3 text-end">
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Novo</button>
-        </div>
+      
     </div>
     <div class="card">
         <div class="row">
@@ -48,15 +49,17 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-9">
-                                Id
+                                    Id
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2">
-                                    Nome
+                                    CNPJ
                                 </th>
                                 <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9">
-                                    Descriçao</th>
+                                    Nome/Razao
+                                </th>
                                 <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9 ">
-                                    Data Inicio</th>
+                                    Telefone
+                                </th>
                                 <th class="text-secondary opacity-7">
                                     *
                                 </th>
@@ -69,18 +72,18 @@
                                     <p class="text-xs text-center text-secondary mb-0">{{ $iten->id }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->id_externo }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->cnpj }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->id_interno }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->razao }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xxs text-secondary mb-0">{{ $iten->id_cadastro }} </p>
+                                    <p class="text-xxs text-secondary mb-0">{{ $iten->telefone }} </p>
                                 </td>
-                                <td class="">
-                                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-secondary btn-sm mb-0">
-                                        Editar
-                                    </button>
+                                
+                                <td>
+                                     <a href="{{ route('amostraCadastro', ['id' => $iten->id]) }}">Editar</a>
+                                     
                                 </td>
                             </tr>
 
@@ -93,74 +96,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Amostras</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <form method="POST" action="/cadastros/amostra">
-                @csrf
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Id Interno</label>
-                        <input type="text" name="id_interno" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Id Externo</label>
-                        <input type="text" name="id_externo" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Cadastro Cadastro</label>
-                        <input type="date" name="id_cadastro" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Cultura</label>
-                        <input type="text" name="cultura" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Propriedade</label>
-                        <input type="text" name="propriedade" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Tipo</label>
-                        <input type="text" name="tipo" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Lote</label>
-                        <input type="text" name="lote" class="form-control">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Status</label>
-                        <input type="text" name="status" class="form-control">
-                    </div>
-                </div>
-                <button type="subimit" class="btn bg-gradient-primary">Salvar</button>
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 @endsection

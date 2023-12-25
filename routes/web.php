@@ -12,6 +12,7 @@ use App\Http\Controllers\OrcaController;
 use App\Http\Controllers\OpcoesController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\EmpresasController;
+use App\Http\Controllers\DashboardCrontoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +38,7 @@ Route::get('/', [UsuarioController::class, 'home2'])->name('home2');
 Route::post('/meusEventos',[EventoController::class, 'store'])->middleware('auth');
 Route::get('/meusEventos', [EventoController::class, 'index'])->middleware('auth')->name('meusEventos');
 Route::get('/ListEventos', [EventoController::class, 'listEventos'])->middleware('auth')->name('listEventos');
-Route::get('/cadastros/amostras', [AmostrasController::class, 'index'])->middleware('auth')->name('cadastroAmostra');
-Route::post('/cadastros/amostra', [AmostrasController::class, 'store'])->middleware('auth')->name('cadastroPost');
-Route::post('/cadastros/modelos', [ModeloController::class, 'store'])->middleware('auth')->name('cadastroModelo');
+
 
 
 Route::get('/modelos', [ModeloController::class, 'index'])->middleware('auth')->name('modelos');
@@ -47,7 +46,15 @@ Route::get('/remessas', [ModeloController::class, 'indexRemessa'])->middleware('
 
 
 
-Route::get('/amostras', [AmostrasController::class, 'indexList'])->middleware('auth')->name('listaAmostra');
+Route::get('/amostras', [AmostrasController::class, 'index'])->middleware('auth')->name('listaAmostra');
+Route::get('/amostrasCadastro', [AmostrasController::class, 'indexCadastro'])->middleware('auth')->name('amostraCreate');
+Route::get('amostras/{id}/cadastro', [AmostrasController::class, 'indexCadastro'])->middleware('auth')->name('amostraCadastro');
+Route::post('amostras/cadastro', [AmostrasController::class, 'store'])->middleware('auth')->name('amostraPost');
+Route::put('amostras/{id}/cadastro', [AmostrasController::class, 'update'])->middleware('auth')->name('amostraPut');
+
+
+
+
 
 
 Route::get('/ordem', [OrdemController::class, 'index'])->middleware('auth')->name('ordem');
@@ -75,6 +82,8 @@ Route::post('/servicoStore', [ServicosController::class, 'store'])->middleware('
 Route::get('/servicoP/{nome}', [ServicosController::class,'index'])->middleware('auth')->name('servicoGet');
 
 
+//dashboard
+Route::get('/dasboard', [DashboardCrontoller::class,'index'])->middleware('auth')->name('dashboard');
 
 
 Route::get('/orcamento', [OrcaController::class, 'index'])->middleware('auth')->name('orca');
