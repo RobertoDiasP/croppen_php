@@ -34,12 +34,12 @@
                 <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
             </div>
         </div>
-        <div class="col-3">
-            <a type="button" class="btn btn-success btn-sm"  href="{{ route('pessoaCreate') }}">Nova Amostra</a>
-        </div>
+        
     </div>
     <div class="row mt-4 justify-content-end">
-      
+        <div class="col-3 text-end">
+            <a type="button" class="btn btn-success btn-sm text-end"  href="{{ route('pessoaCreate') }}">Nova Pessoa</a>
+        </div>
     </div>
     <div class="card">
         <div class="row">

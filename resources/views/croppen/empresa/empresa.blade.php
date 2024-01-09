@@ -34,12 +34,11 @@
                 <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
             </div>
         </div>
-        <div class="col-3">
-            <a type="button" class="btn btn-success btn-sm"  href="{{ route('amostraCreate') }}">Nova Empresa</a>
-        </div>
     </div>
     <div class="row mt-4 justify-content-end">
-      
+        <div class="col-3 text-end">
+            <a type="button" class="text-end btn btn-success btn-sm"  href="{{ route('empresaCreate') }}">Nova Empresa</a>
+        </div>
     </div>
     <div class="card">
         <div class="row">
@@ -75,7 +74,7 @@
                                     <p class="text-xs text-secondary mb-0">{{ $iten->cnpj }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->razao }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->razao_social }}</p>
                                 </td>
                                 <td>
                                     <p class="text-xxs text-secondary mb-0">{{ $iten->telefone }} </p>

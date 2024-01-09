@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <button type="button" onclick="carregarDadosDoServico()" class="btn btn-primary btn-sm">Pesquisar</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
                         </div>
                     
                 </form>
@@ -98,7 +98,71 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- Aba 2: Dashboard -->
+                <div class="tab-pane fade" id="dashboard-tabs-icons" role="tabpanel" aria-labelledby="dashboard-tab">
+                    <!-- Conteúdo da aba Dashboard -->
+                    <p>Conteúdo da aba Dashboard...</p>
+                </div>
+            </div>
+            <div class="tab-pane fade show active" id="dashboard-tabs-icons" role="tabpanel" aria-labelledby="profile-tab">
+                <!-- Conteúdo da aba My Profile -->
+               
+                <form action="">
+                    <h4 class="text-center mt-3">Serviços</h4>
+                     
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">Pesquisar</label>
+                                <input type="text" id="inputpesquisa" name="inputpesquisa" class="form-control">
+                                <div id="resultadosPesquisa"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                        </div>
+                    
+                </form>
+                    
+                    <div class="card mt-3">
+                        <div class="row mt-3">
+                            <form id="updateForm">
+                                @csrf
+                                
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label>Id</label>
+                                            <input type="text" name="id" id="id" class="form-control" required readonly >
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label>Nome</label>
+                                            <input type="text" name="nome" id="nome" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label>Valor</label>
+                                            <input type="number" name="valor" id="valor" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label>Descrição</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-6">
+                                        <button type="button" onclick="verificarCampoId()" class="btn btn-primary btn-sm">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <!-- Aba 2: Dashboard -->
                 <div class="tab-pane fade" id="dashboard-tabs-icons" role="tabpanel" aria-labelledby="dashboard-tab">
                     <!-- Conteúdo da aba Dashboard -->

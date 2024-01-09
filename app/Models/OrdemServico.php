@@ -9,7 +9,7 @@ class OrdemServico extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "tipo", "status", "desricao"
+        "tipo", "status", "descricao","data"
     ];
 
     public function amostras()

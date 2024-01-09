@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('title', "Ordem")
+@section('title', "Nematoides")
 
 @section('content')
 
@@ -11,33 +11,15 @@
         <div class="row py-2">
             <div class="col-6">
                 <div class="input-group input-group-static mb-4">
-                    <label>Data de</label>
-                    <input type="date" name="nome" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Data Até</label>
-                    <input type="date" name="nome" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Nome Pasciente</label>
-                    <input type="text" name="nome" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Status</label>
-                    <input type="text" name="nome" class="form-control">
+                    <label>Genero</label>
+                    <input type="text" name="genero" class="form-control">
                 </div>
             </div>
         </div>
     </div>
     <div class="row mt-4 justify-content-end">
         <div class="col-3 text-end">
-            <a type="button" class="text-end btn btn-success btn-sm"  href="{{ route('ordemCreate') }}">Nova Ordem</a>
+            <a type="button" class="text-end btn btn-success btn-sm"  href="{{ route('nemaCreate') }}">Novo Nematoide</a>
         </div>
     </div>
    
@@ -50,19 +32,10 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9">
-                                    Id
+                                    Genero
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2">
-                                    Data
-                                </th>
-                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9">
-                                    Status
-                                </th>
-                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9 ">
-                                    Descrição
-                                </th>
-                                <th class="text-secondary opacity-7">
-                                    *
+                                    Especie
                                 </th>
                                 <th class="text-secondary opacity-7">
                                     *
@@ -70,25 +43,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ordem as $iten)
+                            @foreach ($nema as $iten)
                             <tr>                                
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->id }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->genero }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->status }}</p>
-                                </td>
-                                <td>
-                                    <p class="text-xxs text-secondary mb-0">{{ $iten->descricao }} </p>
-                                </td>
-                                <td>
-                                    <p class="text-xs text-start text-secondary mb-0">{{ $iten->data }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->especie }}</p>
                                 </td>
                                 <td>
                                      <a href="{{ route('ordemCadastro', ['id' => $iten->id]) }}">Editar</a>
-                                </td>
-                                <td>
-                                    <a >importar Excel</a>
                                 </td>
                             </tr>
 

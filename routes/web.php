@@ -13,6 +13,10 @@ use App\Http\Controllers\OpcoesController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\DashboardCrontoller;
+use App\Http\Controllers\NematoidesController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ExemploMailable;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -53,12 +57,21 @@ Route::post('amostras/cadastro', [AmostrasController::class, 'store'])->middlewa
 Route::put('amostras/{id}/cadastro', [AmostrasController::class, 'update'])->middleware('auth')->name('amostraPut');
 
 
-
+Route::get('/nematoides', [NematoidesController::class, 'index'])->middleware('auth')->name('namatoides');
+Route::get('/nematoidesCadastro', [NematoidesController::class, 'indexCadastro'])->middleware('auth')->name('nemaCreate');
+Route::get('nematoides/{id}/cadastro', [NematoidesController::class, 'indexCadastro'])->middleware('auth')->name('nemaCadastro');
+Route::post('nematoides/cadastro', [NematoidesController::class, 'store'])->middleware('auth')->name('nemaPost');
+Route::put('nematoides/{id}/cadastro', [NematoidesController::class, 'update'])->middleware('auth')->name('nemaPut');
 
 
 
 Route::get('/ordem', [OrdemController::class, 'index'])->middleware('auth')->name('ordem');
-
+Route::get('/ordemCadastro', [OrdemController::class, 'indexCadastro'])->middleware('auth')->name('ordemCreate');
+Route::get('ordem/{id}/cadastro', [OrdemController::class, 'indexCadastro'])->middleware('auth')->name('ordemCadastro');
+Route::post('ordem/cadastro', [OrdemController::class, 'store'])->middleware('auth')->name('ordemPost');
+Route::put('ordem/{id}/cadastro', [OrdemController::class, 'update'])->middleware('auth')->name('ordemPut');
+Route::post('ordem/import/{id}', [OrdemController::class, 'import'])->middleware('auth')->name('imortAmostras');
+Route::get('ordemAmostra/{id}', [OrdemController::class, 'indexCadastroAmostraOrdem'])->middleware('auth')->name('ordemAmostras');
 
 // Pessoas 
 Route::get('/pessoa', [PessoaController::class, 'index'])->middleware('auth')->name('pessoa');
@@ -97,3 +110,12 @@ Route::get('/testeapi', [UsuarioController::class, 'teste']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/testar-smtp', function () {
+    try {
+        Mail::to('eng.c.jroberto@gmail.com')->send(new ExemploMailable());
+        return 'E-mail de teste enviado com sucesso!';
+    } catch (\Exception $e) {
+        return 'Erro ao enviar e-mail de teste: ' . $e->getMessage();
+    }
+});

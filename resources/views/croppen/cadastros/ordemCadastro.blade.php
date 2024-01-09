@@ -1,49 +1,58 @@
 @extends('welcome')
-@section('title', "Amostras")
+@section('title', "Cadastro Ordem")
 
 @section('content')
 
-<div class="px-4">
-    <div class="card px-4">
-        <h3>
-            Amostras
-        </h3>
-        <div class="row py-2 mt-4">
+
+<div class="card p-4">
+    <form method="POST" action="{{ $ordem->id ? route('ordemPut', ['id' => $ordem->id]) : route('ordemPost') }}" >
+    @csrf
+    @if($ordem->id)
+        @method('PUT')
+    @endif
+
+    <h3>Cadastro Ordem Serviço</h3>
+    <h6 class="mt-2">Numero da Ordem de Serviço: {{$ordem->id}}</h6>
+
+        <div class="row mt-5">
             <div class="col-6">
                 <div class="input-group input-group-static mb-4">
-                    <label>Id Interna</label>
-                    <input type="text" name="nome" class="form-control">
+                    <label>Data</label>
+                    <input type="date" name="data" id="data" class="form-control" value="{{ $ordem->data }}" required>
                 </div>
             </div>
             <div class="col-6">
                 <div class="input-group input-group-static mb-4">
-                    <label>Id Externo</label>
-                    <input type="text" name="razao_social" class="form-control">
+                    <label>Descrição</label>
+                    <input type="text" name="descricao" id="descricao" class="form-control" value="{{ $ordem->descricao }}" required>
                 </div>
             </div>
             <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Status</label>
-                    <input type="text" name="cnpj" class="form-control">
-                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
             </div>
-            <div class="col-6">
-                <div class="input-group input-group-static mb-4">
-                    <label>Cultura</label>
-                    <input type="text" name="razao_social" class="form-control">
-                </div>
-            </div>
-            <div class="col-6">
-                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
-            </div>
+           
         </div>
-        
+    </form>
+    <div class="row d-flex justify-content-center align-items-center mt-3 mb-3">
+    <div class="card p-3 me-2 col-4">
+        <form action="{{ $ordem->id ? '/ordem/import/'.$ordem->id : '/ordem/import' }}" method="post" enctype="multipart/form-data">
+            <h6 class="text-center mb-2">Importar amostras para essa ordem</h6>
+            @csrf
+            <input type="file" name="file" accept=".xlsx, .xls">
+            <button type="submit" class="btn btn-info btn-sm">Importar</button>
+        </form>
     </div>
-    <div class="row mt-4 justify-content-end">
-        <div class="col-3 text-end">
-            <a type="button" class="text-end btn btn-success btn-sm"  href="{{ route('amostraCreate') }}">Nova Amostra</a>
+    <div class="card p-3  justify-content-center align-items-center col-4">
+        <h6 class="text-center mb-2">Adicionar amostras manualmente para essa ordem</h6>
+        <div class="div">
+            @if($ordem->id)
+                <a href="{{ route('ordemAmostras', ['id' => $ordem->id]) }}" type="button" class="text-end btn btn-success btn-sm">Adicionar Amostras</a>
+            @endif
         </div>
     </div>
+</div>
+
+    <h6 class="text-center mt-3 mb-2">Amostras Vinculadas a Essa Ordem</h6>
     <div class="card p-3">
         <div class="row">
             <div class="mt-3">
@@ -97,7 +106,5 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
