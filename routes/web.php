@@ -100,6 +100,13 @@ Route::get('/dasboard', [DashboardCrontoller::class,'index'])->middleware('auth'
 
 
 Route::get('/orcamento', [OrcaController::class, 'index'])->middleware('auth')->name('orca');
+Route::get('/orcamentoCadastro', [OrcaController::class, 'indexCadastro'])->middleware('auth')->name('orcaCreate');
+Route::get('/{id}/orcamento', [OrcaController::class, 'indexCadastro'])->middleware('auth')->name('orcaCadastro');
+Route::post('orcamento/cadastro', [OrcaController::class, 'store'])->middleware('auth')->name('orcaPost');
+Route::post('/orcamentoid', [OrcaController::class, 'storeOrcaId'])->middleware('auth')->name('orcaidPost');
+Route::put('orcamento/{id}/cadastro', [OrcaController::class, 'update'])->middleware('auth')->name('orcaPut');
+Route::delete('/orcamentoid/{id}', [OrcaController::class, 'destroy'])->middleware('auth')->name('orcamentoid.destroy');
+
 
 
 Route::get('/testeapi', [UsuarioController::class, 'teste']);

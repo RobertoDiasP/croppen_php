@@ -32,6 +32,11 @@ class Empresas extends Model
         'redes_sociais',
     ];
 
+    public function orcamentos()
+    {
+        return $this->hasMany(Orcamento::class, 'cliente_id');
+    }
+
     protected $casts = [
         'data_fundacao' => 'date',
     ];

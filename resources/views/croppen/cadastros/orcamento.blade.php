@@ -37,19 +37,70 @@
     </div>
     <div class="row mt-4 justify-content-end">
         <div class="col-3 text-end">
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar Modelos</button>
+          <a type="button" class="text-end btn btn-success btn-sm"  href="{{ route('orcaCreate') }}">Novo Orçamento</a>
         </div>
     </div>
-    <div class="card">
+
+     <div class="card">
         <div class="row">
             <div class="mt-3">
-                <div class="table-responsive">
+            <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9">
+                                    Id
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2">
+                                    Data
+                                </th>
+                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9">
+                                    Status
+                                </th>
+                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9 ">
+                                    Descrição
+                                </th>
+                                <th class="text-secondary opacity-7">
+                                    *
+                                </th>
+                                <th class="text-secondary opacity-7">
+                                    *
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orca as $iten)
+                            <tr>                                
+                                <td>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->id }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->status }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-xxs text-secondary mb-0">{{ $iten->descricao }} </p>
+                                </td>
+                                <td>
+                                    <p class="text-xs text-start text-secondary mb-0">{{ $iten->data }}</p>
+                                </td>
+                                <td>
+                                     <a href="{{ route('orcaCadastro', ['id' => $iten->id]) }}">Editar</a>
+                                </td>
+                                <td>
+                                    <a >importar Excel</a>
+                                </td>
+                            </tr>
 
+                        </tbody>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <div class="row justify-content-center">
     <div class="col-6">
 
@@ -60,45 +111,7 @@
     </div> -->
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Adicionar Modelo</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <form method="POST" action="/cadastros/modelos">
-                @csrf
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Nome do Pasciente</label>
-                        <input type="text" name="nome" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Tipo de impressao</label>
-                        <input type="text" name="servico_id" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="input-group input-group-static mb-4">
-                        <label>Arquivo</label>
-                        <input type="file" name="arquivo" class="form-control" required>
-                    </div>
-                </div>
-                <button type="subimit" class="btn bg-gradient-primary">Salvar</button>
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Fechar</button>
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <style>
     .status-Recebido {
