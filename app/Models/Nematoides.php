@@ -9,6 +9,11 @@ class Nematoides extends Model
 {
     protected $fillable = ['genero', 'especie'];
 
+    public function resultadosid()
+    {
+        return $this->hasMany(NematoidesResultado::class, 'nematode_id');
+    }
+
     public function resultados()
     {
         return $this->belongsToMany(Resultado::class, 'nematoides_resultado')

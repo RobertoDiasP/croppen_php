@@ -14,6 +14,7 @@ use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\DashboardCrontoller;
 use App\Http\Controllers\NematoidesController;
+use App\Http\Controllers\ResultadoController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ExemploMailable;
 
@@ -63,6 +64,15 @@ Route::get('nematoides/{id}/cadastro', [NematoidesController::class, 'indexCadas
 Route::post('nematoides/cadastro', [NematoidesController::class, 'store'])->middleware('auth')->name('nemaPost');
 Route::put('nematoides/{id}/cadastro', [NematoidesController::class, 'update'])->middleware('auth')->name('nemaPut');
 
+
+Route::get('/resultados', [ResultadoController::class, 'index'])->middleware('auth')->name('resultados');
+Route::get('/resultadosCadastro', [ResultadoController::class, 'indexCadastro'])->middleware('auth')->name('resultCreate');
+Route::get('resultados/{id}/cadastro', [ResultadoController::class, 'indexCadastro'])->middleware('auth')->name('resultCadastro');
+Route::post('resultados/cadastro', [ResultadoController::class, 'store'])->middleware('auth')->name('resultPost');
+Route::put('resultados/{id}/cadastro', [ResultadoController::class, 'update'])->middleware('auth')->name('resultPut');
+Route::post('/postresultid', [ResultadoController::class, 'storeItem'])->middleware('auth')->name('postresultid');
+Route::delete('/postresultid/{id}', [ResultadoController::class, 'destroy'])->middleware('auth')->name('postresultid.destroy');
+Route::get('/relatorioresultado', [ResultadoController::class, 'relatorio'])->middleware('auth')->name('relatorioresultado');
 
 
 Route::get('/ordem', [OrdemController::class, 'index'])->middleware('auth')->name('ordem');

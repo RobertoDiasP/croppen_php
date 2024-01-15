@@ -16,4 +16,9 @@ class OrdemServico extends Model
     {
         return $this->hasMany(Amostra::class);
     }
+    
+    public function resultados()
+    {
+        return $this->hasMany(Resultado::class, 'ordem_id');
+    }
 }

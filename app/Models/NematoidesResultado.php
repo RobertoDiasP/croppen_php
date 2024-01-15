@@ -16,8 +16,8 @@ class NematoidesResultado extends Model
         return $this->belongsTo(Resultado::class);
     }
 
-    public function nematode()
+    public function nematoides()
     {
-        return $this->belongsTo(Nematode::class);
+        return $this->belongsTo(Nematoides::class, 'nematode_id');
     }
 }
