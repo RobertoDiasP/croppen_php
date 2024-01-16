@@ -56,13 +56,10 @@
                                     Data
                                 </th>
                                 <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9">
-                                    Status
-                                </th>
-                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9 ">
                                     Descrição
                                 </th>
-                                <th class="text-secondary opacity-7">
-                                    *
+                                <th class="text-uppercase ps-1 text-secondary text-xxs font-weight-bolder opacity-9 ">
+                                    status
                                 </th>
                                 <th class="text-secondary opacity-7">
                                     *
@@ -76,19 +73,16 @@
                                     <p class="text-xs text-secondary mb-0">{{ $iten->id }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-secondary mb-0">{{ $iten->status }}</p>
+                                    <p class="text-xs text-start text-secondary mb-0">{{ $iten->data }}</p>
                                 </td>
                                 <td>
                                     <p class="text-xxs text-secondary mb-0">{{ $iten->descricao }} </p>
                                 </td>
                                 <td>
-                                    <p class="text-xs text-start text-secondary mb-0">{{ $iten->data }}</p>
+                                    <p class="text-xs text-secondary mb-0">{{ $iten->status }}</p>
                                 </td>
                                 <td>
                                      <a href="{{ route('ordemCadastro', ['id' => $iten->id]) }}">Editar</a>
-                                </td>
-                                <td>
-                                    <a >importar Excel</a>
                                 </td>
                             </tr>
 
