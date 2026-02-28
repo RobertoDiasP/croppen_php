@@ -51,7 +51,7 @@ Route::get('/remessas', [ModeloController::class, 'indexRemessa'])->middleware('
 
 
 
-Route::get('/amostras', [AmostrasController::class, 'index'])->middleware('auth')->name('listaAmostra');
+Route::get('/amostras', [AmostrasController::class, 'index'])->name('listaAmostra');
 Route::get('/amostrasCadastro', [AmostrasController::class, 'indexCadastro'])->middleware('auth')->name('amostraCreate');
 Route::get('amostras/{id}/cadastro', [AmostrasController::class, 'indexCadastro'])->middleware('auth')->name('amostraCadastro');
 Route::post('amostras/cadastro', [AmostrasController::class, 'store'])->middleware('auth')->name('amostraPost');
@@ -124,7 +124,7 @@ Route::get('/testeapi', [UsuarioController::class, 'teste']);
 
 
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
