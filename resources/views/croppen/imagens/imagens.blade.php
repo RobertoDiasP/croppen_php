@@ -59,7 +59,7 @@
         position: relative;
         text-align: center;
 
-        width: 750px;
+        width: 950px;
         max-width: 95%;
     }
 
@@ -148,6 +148,16 @@
     .paginacao button:hover {
         background: #222;
     }
+
+    .botoes-card {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .botoes-card button {
+        flex: 1;
+    }
 </style>
 
 <div id="app">
@@ -163,15 +173,23 @@
                 :src="'https://croppen.org/storage/' + img.caminho">
 
             <div>ID: @{{ img.id }}</div>
+            <div class="input-group input-group-static mb-4">
+                <label>Cultura</label>
+                <input type="text" v-model="img.cultura" name="razao_social" id="razao_social" class="form-control">
+            </div>
+            <div class="input-group input-group-static mb-4">
+                <label>Doença</label>
+                <input type="text" v-model="img.doenca" name="razao_social" id="razao_social" class="form-control">
+            </div>
+            <div class="input-group input-group-static mb-4">
+                <label>Cidade</label>
+                <input type="text" v-model="img.cidade" name="razao_social" id="razao_social" class="form-control">
+            </div>
 
-            <input v-model="img.cultura" placeholder="Cultura"><br>
-
-            <input v-model="img.doenca" placeholder="Doença"><br>
-
-            <input v-model="img.cidade" placeholder="Cidade"><br>
-
-            <button @click="salvar(img)">Salvar</button>
-
+            <div class="botoes-card">
+                <button class="btn btn-info btn-sm" @click="salvar(img)">Salvar</button>
+                <button class="btn btn-danger btn-sm" @click="deletar(img)">Deletar</button>
+            </div>
         </div>
 
     </div>
@@ -301,8 +319,31 @@
 
                 }
 
-            }
+            },
+            async deletar(img) {
 
+                if (!confirm("Deseja realmente deletar esta imagem?")) {
+                    return
+                }
+
+                try {
+
+                    await axios.delete('https://croppen.org/api/imagens/' + img.id)
+
+                    alert("Imagem deletada")
+
+                    // remove da lista sem recarregar
+                    this.imagens.data = this.imagens.data.filter(i => i.id !== img.id)
+
+                } catch (e) {
+
+                    console.log(e)
+
+                    alert("Erro ao deletar")
+
+                }
+
+            }
         }
 
     }).mount('#app')
