@@ -11,4 +11,6 @@ class DashboardCrontoller extends Controller
         
         return view('croppen.dashboard.dashboard');
     }
+
+   
 }

@@ -94,8 +94,12 @@ class ImagemController extends Controller
         $validator = Validator::make($request->all(), [
             'imagens' => 'required|array|min:1|max:10',
             'imagens.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+
             'localizacao' => 'nullable|string|max:255',
             'protocolo' => 'nullable|string|max:100',
+            'cidade' => 'nullable|string|max:255',
+            'cultura' => 'nullable|string|max:255',
+            'doenca' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -106,29 +110,43 @@ class ImagemController extends Controller
         }
 
         try {
+
             $imagensSalvas = [];
 
+            // Dados comuns a todas as imagens
+            $dadosComuns = [
+                'localizacao' => $request->localizacao,
+                'protocolo' => $request->protocolo,
+                'cidade' => $request->cidade,
+                'cultura' => $request->cultura,
+                'doenca' => $request->doenca,
+            ];
+
             foreach ($request->file('imagens') as $file) {
+
                 $nomeOriginal = $file->getClientOriginalName();
                 $extensao = $file->getClientOriginalExtension();
                 $nomeArquivo = time() . '_' . uniqid() . '.' . $extensao;
 
                 $caminho = $file->storeAs('imagens', $nomeArquivo, 'public');
 
-                $imagem = Imagem::create([
+                $imagem = Imagem::create(array_merge([
                     'nome_original' => $nomeOriginal,
                     'nome_arquivo' => $nomeArquivo,
                     'caminho' => $caminho,
                     'extensao' => $extensao,
                     'tamanho' => $file->getSize(),
-                    'localizacao' => $request->localizacao,
-                    'protocolo' => $request->protocolo,
-                ]);
+                ], $dadosComuns));
 
                 $imagensSalvas[] = [
                     'id' => $imagem->id,
                     'url' => asset('storage/' . $caminho),
-                    'nome_original' => $imagem->nome_original
+                    'nome_original' => $imagem->nome_original,
+                    'localizacao' => $imagem->localizacao,
+                    'protocolo' => $imagem->protocolo,
+                    'cidade' => $imagem->cidade,
+                    'cultura' => $imagem->cultura,
+                    'doenca' => $imagem->doenca,
                 ];
             }
 
@@ -138,6 +156,7 @@ class ImagemController extends Controller
                 'data' => $imagensSalvas
             ], 201);
         } catch (\Exception $e) {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Erro ao fazer upload: ' . $e->getMessage()
@@ -230,5 +249,35 @@ class ImagemController extends Controller
             'success' => true,
             'data' => $imagens
         ]);
+    }
+
+    /**
+     * Atualizar dados da imagem
+     * PUT /api/imagens/{id}
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+
+            $imagem = Imagem::findOrFail($id);
+
+            $imagem->update([
+                'cultura' => $request->cultura,
+                'doenca' => $request->doenca,
+                'cidade' => $request->cidade
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Imagem atualizada com sucesso!',
+                'data' => $imagem
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao atualizar imagem: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

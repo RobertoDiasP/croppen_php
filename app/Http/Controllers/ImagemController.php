@@ -14,7 +14,7 @@ class ImagemController extends Controller
     public function index()
     {
         $imagens = Imagem::latest()->paginate(20);
-        return view('imagens.index', compact('imagens'));
+        return view('croppen.imagens.imagens', compact('imagens'));
     }
 
     /**

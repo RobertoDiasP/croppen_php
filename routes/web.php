@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\AmostrasController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\OrdemController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\OpcoesController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\DashboardCrontoller;
+use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\NematoidesController;
 use App\Http\Controllers\ResultadoController;
 use Illuminate\Support\Facades\Mail;
@@ -36,7 +39,10 @@ Route::get('/', function () {
 
 Route::get('/usuario', [UsuarioController::class, 'index']);
 Route::get('/login2', [UsuarioController::class, 'paginalogar'])->name('login');
-Route::get('/criarconta', [UsuarioController::class, 'criarConta'])->name('criarconta');
+Route::post('/login2', [LoginController::class, 'login'])->name('loginp');
+Route::get('/criarconta', [RegisterController::class, 'showRegistrationForm'])
+    ->name('register');
+Route::post('/criarconta', [RegisterController::class, 'register']);
 Route::get('/', [UsuarioController::class, 'home2'])->name('home2');
 
 
@@ -49,6 +55,8 @@ Route::get('/ListEventos', [EventoController::class, 'listEventos'])->middleware
 Route::get('/modelos', [ModeloController::class, 'index'])->middleware('auth')->name('modelos');
 Route::get('/remessas', [ModeloController::class, 'indexRemessa'])->middleware('auth')->name('remessas');
 
+Route::get('/imagem', [ImagemController::class, 'index'])->name('imagem');
+Route::get('/imagem/{id}/edit', [ImagemController::class, 'edit'])->name('imagem.edit');
 
 
 Route::get('/amostras', [AmostrasController::class, 'index'])->name('listaAmostra');

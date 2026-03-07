@@ -9,13 +9,13 @@ class UsuarioController extends Controller
     public function paginalogar()
     {
         
-        return view('usuario.login');
+        return view('auth.login');
     }
 
     public function criarConta()
     {
         
-        return view('usuario.criarconta');
+        return view('auth.register');
     }
 
     public function home2()
