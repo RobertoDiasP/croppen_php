@@ -55,7 +55,7 @@ Route::get('/ListEventos', [EventoController::class, 'listEventos'])->middleware
 Route::get('/modelos', [ModeloController::class, 'index'])->middleware('auth')->name('modelos');
 Route::get('/remessas', [ModeloController::class, 'indexRemessa'])->middleware('auth')->name('remessas');
 
-Route::get('/imagem', [ImagemController::class, 'index'])->name('imagem');
+Route::get('/imagem', [ImagemController::class, 'index'])->middleware('auth')->name('imagem');
 Route::get('/imagem/{id}/edit', [ImagemController::class, 'edit'])->name('imagem.edit');
 
 

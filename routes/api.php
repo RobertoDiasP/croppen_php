@@ -33,3 +33,4 @@ Route::delete('/imagens/{id}', [ImagemController::class, 'destroy']);
 
 Route::get('/agentes', [ImagemController::class, 'listarAgentes']);
 Route::post('/imagens/{id}/agentes', [ImagemController::class, 'adicionarAgentes']);
+Route::post('/agentes', [ImagemController::class,'storeAgente']);

@@ -28,7 +28,7 @@
         margin: auto;
     }
 
-    .modal {
+    .modal-imagem {
         position: fixed;
         top: 0;
         left: 0;
@@ -120,6 +120,54 @@
     .botoes-card button {
         flex: 1;
     }
+
+    .filtros-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px 40px;
+    }
+
+    .campo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .campo label {
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    .campo input,
+    .campo select {
+        border: none;
+        border-bottom: 2px solid #ddd;
+        padding: 6px 4px;
+        font-size: 15px;
+        background: transparent;
+    }
+
+    .campo input:focus,
+    .campo select:focus {
+        outline: none;
+        border-bottom: 2px solid #0d6efd;
+    }
+
+    .campo-agente {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .btn-add {
+        white-space: nowrap;
+    }
+
+    .acoes {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+    }
 </style>
 
 
@@ -127,53 +175,75 @@
 
     <h1>Galeria de Imagens</h1>
 
-    <div class="card mb-4">
+    <div class="card mb-4 p-4">
 
-        <div class="card-body">
+        <div class="card-body p-5">
 
-            <h5>Filtros</h5>
+            <h5 class="mb-4">Filtros</h5>
 
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+            <div class="filtros-grid">
 
-                <input
-                    class="form-control"
-                    placeholder="ID"
-                    v-model="filtros.id">
+                <!-- ID -->
+                <div class="campo">
+                    <label>ID</label>
+                    <input
+                        type="text"
+                        v-model="filtros.id">
+                </div>
 
+                <!-- Cultura -->
+                <div class="campo">
+                    <label>Cultura</label>
+                    <input
+                        type="text"
+                        v-model="filtros.cultura">
+                </div>
 
-                <input
-                    class="form-control"
-                    placeholder="Cultura"
-                    v-model="filtros.cultura">
+                <!-- Cidade -->
+                <div class="campo">
+                    <label>Cidade</label>
+                    <input
+                        type="text"
+                        v-model="filtros.cidade">
+                </div>
 
+                <!-- Agente -->
+                <div class="campo">
 
-                <input
-                    class="form-control"
-                    placeholder="Cidade"
-                    v-model="filtros.cidade">
+                    <label>Agente</label>
 
+                    <div class="campo-agente">
 
-                <select
-                    class="form-control"
-                    v-model="filtros.agente">
+                        <select v-model="filtros.agente">
 
-                    <option value="">Agente</option>
+                            <option value="">Todos</option>
 
-                    <option
-                        v-for="agente in agentes"
-                        :key="agente.id"
-                        :value="agente.id">
+                            <option
+                                v-for="agente in agentes"
+                                :key="agente.id"
+                                :value="agente.id">
 
-                        @{{ agente.nome }}
+                                @{{ agente.nome }}
 
-                    </option>
+                            </option>
 
-                </select>
+                        </select>
+
+                        <button
+                            class="btn btn-success"
+                            @click="abrirModalAgente">
+
+                            + Agente
+
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
-
-            <div style="margin-top:10px;display:flex;gap:10px">
+            <div class="acoes">
 
                 <button
                     class="btn btn-primary"
@@ -197,8 +267,7 @@
 
     </div>
 
-
-    <div class="grid-imagens">
+    <div class="grid-imagens p-3">
 
         <div v-for="img in imagens.data" :key="img.id" class="card">
 
@@ -304,7 +373,7 @@
     </div>
 
 
-    <div v-if="imagemSelecionada" class="modal" @click="fecharImagem">
+    <div v-if="imagemSelecionada" class="modal-imagem" @click="fecharImagem">
 
         <div class="modal-content" @click.stop>
 
@@ -328,13 +397,63 @@
         </div>
 
     </div>
+    <div class="modal fade" id="modalAgente" tabindex="-1">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">Novo Agente</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    <input
+                        class="form-control"
+                        placeholder="Nome do agente"
+                        v-model="novoAgente.nome">
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                        Cancelar
+
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        @click="salvarAgente">
+
+                        Salvar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const {
         createApp
@@ -361,6 +480,9 @@
                     doenca: '',
                     cidade: '',
                     agente: ''
+                },
+                novoAgente: {
+                    nome: ''
                 }
             }
 
@@ -376,6 +498,44 @@
 
         methods: {
 
+            abrirModalAgente() {
+
+                let modal = new bootstrap.Modal(
+                    document.getElementById('modalAgente')
+                )
+
+                modal.show()
+
+            },
+            async salvarAgente() {
+
+                if (!this.novoAgente.nome) {
+                    alert("Informe o nome")
+                    return
+                }
+
+                try {
+
+                    let response = await axios.post('/api/agentes', {
+                        nome: this.novoAgente.nome
+                    })
+
+                    this.agentes.push(response.data)
+
+                    this.novoAgente.nome = ""
+
+                    bootstrap.Modal.getInstance(
+                        document.getElementById('modalAgente')
+                    ).hide()
+
+                } catch (e) {
+
+                    console.log(e)
+                    alert("Erro ao salvar agente")
+
+                }
+
+            },
 
             async carregarAgentes() {
 

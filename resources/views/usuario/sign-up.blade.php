@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Material Dashboard 2 by Creative Tim
+    Croppen Dashboard
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -42,60 +42,7 @@
 <body class="" style="background-color:#2b2626;">
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
-      <div class="col-12">
-        <Navbar>
-        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
-          <div class="container-fluid ps-2 pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
-              Minha Agenda !
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon mt-2">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.html">
-                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                    Dashboard
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/profile.html">
-                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                    Meu Perfil
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.html">
-                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Login Croppen
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-in.html">
-                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Fazer Login
-                  </a>
-                </li>
-              </ul>
-              <!-- <ul class="navbar-nav d-lg-flex d-none">
-                <li class="nav-item d-flex align-items-center">
-                  <a class="btn btn-outline-primary btn-sm mb-0 me-2" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online Builder</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/product/material-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Free download</a>
-                </li>
-              </ul> -->
-            </div>
-          </div>
-        </nav>
-        <End Navbar>
-      </div>
+      
     </div>
   </div>
   <main class="main-content  mt-0">
@@ -110,39 +57,13 @@
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
               <div class="card card-plain">
                 <div class="card-header">
-                  <h4 class="font-weight-bolder" style="color:white;">Comece a Usar !</h4>
-                  <p class="mb-0">Faça seu Cadastro e ganhe o primeiro mes de <strong>graça!</strong></p>
+                  <h4 class="font-weight-bolder text-center" style="color:white;">Login Administrativo </h4>
+                  <!-- <p class="mb-0">Faça seu Cadastro e ganhe o primeiro mes de <strong>graça!</strong></p> -->
                 </div>
                 <div class="card-body">
-                  <form role="form">
-                      <label class="form-label">Nome</label>
-                    <div class="input-group input-group-outline mb-3">
-                      <input type="text" style="color:white"  class="form-control">
+                  <div class="text-center">
+                      <a type="button"  href="/login2" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Login</a>
                     </div>
-                    <label class="form-label">Email</label>
-                    <div class="input-group input-group-outline mb-3">
-                      <input type="email" style="color:white"  class="form-control">
-                    </div>
-                    <label class="form-label">Senha</label>
-                    <div class="input-group input-group-outline mb-3">
-                      <input type="password" style="color:white" class="form-control">
-                    </div>
-                    <div class="form-check form-check-info text-start ps-0">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                      <label class="form-check-label" for="flexCheckDefault">
-                        Li e concordo com os termos <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                      </label>
-                    </div>
-                    <div class="text-center">
-                      <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Cadastrar</button>
-                    </div>
-                  </form>
-                </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                  <p class="mb-2 text-sm mx-auto">
-                    Já possui uma conta ?
-                    <a  href="/login" class="text-primary text-gradient font-weight-bold">Entrar</a>
-                  </p>
                 </div>
               </div>
             </div>

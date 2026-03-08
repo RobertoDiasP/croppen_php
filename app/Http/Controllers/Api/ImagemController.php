@@ -42,9 +42,18 @@ class ImagemController extends Controller
             });
         }
 
+        $query->orderBy('id', 'desc');
         return $query->paginate(30);
     }
+    public function storeAgente(Request $request)
+    {
 
+        $agente = Agente::create([
+            'nome' => $request->nome
+        ]);
+
+        return $agente;
+    }
 
     /**
      * Upload de uma imagem
