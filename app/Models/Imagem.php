@@ -47,4 +47,13 @@ class Imagem extends Model
     {
         return Storage::disk('public')->exists($this->caminho);
     }
+    public function agentes()
+    {
+        return $this->belongsToMany(
+            Agente::class,
+            'lista_agentes',
+            'imagem_id',
+            'agente_id'
+        );
+    }
 }

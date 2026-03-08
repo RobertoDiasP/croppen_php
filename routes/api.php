@@ -30,3 +30,6 @@ Route::post('/imagens/upload-multiplo', [ImagemController::class, 'uploadMultipl
 
 Route::put('/imagens/{id}', [ImagemController::class, 'update']);
 Route::delete('/imagens/{id}', [ImagemController::class, 'destroy']);
+
+Route::get('/agentes', [ImagemController::class, 'listarAgentes']);
+Route::post('/imagens/{id}/agentes', [ImagemController::class, 'adicionarAgentes']);

@@ -10,8 +10,6 @@
         gap: 20px;
     }
 
-    /* CARD DAS IMAGENS */
-
     .card {
         background: white;
         padding: 15px;
@@ -30,27 +28,18 @@
         margin: auto;
     }
 
-
-    /* MODAL */
-
     .modal {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-
         background: rgba(0, 0, 0, 0.85);
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         z-index: 999;
     }
-
-
-    /* CONTEUDO DO MODAL */
 
     .modal-content {
         background: white;
@@ -58,39 +47,24 @@
         border-radius: 10px;
         position: relative;
         text-align: center;
-
         width: 950px;
         max-width: 95%;
     }
 
-
-    /* AREA DA IMAGEM */
-
     .imagem-container {
         width: 100%;
         height: 500px;
-
         overflow: auto;
-
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-
-    /* IMAGEM */
-
     .imagem-modal {
         max-width: 600px;
         max-height: 500px;
-
         transition: transform 0.2s ease;
-
-        transform-origin: center center;
     }
-
-
-    /* CONTROLES DE ZOOM */
 
     .zoom-controls {
         margin-bottom: 10px;
@@ -101,7 +75,6 @@
         padding: 6px 12px;
         font-size: 16px;
         cursor: pointer;
-
         border: none;
         background: #2d89ef;
         color: white;
@@ -112,21 +85,14 @@
         background: #1b5fbf;
     }
 
-
-    /* BOTAO FECHAR */
-
     .fechar {
         position: absolute;
         top: 10px;
         right: 15px;
-
         font-size: 22px;
         font-weight: bold;
         cursor: pointer;
     }
-
-
-    /* PAGINACAO */
 
     .paginacao {
         margin-top: 25px;
@@ -145,10 +111,6 @@
         cursor: pointer;
     }
 
-    .paginacao button:hover {
-        background: #222;
-    }
-
     .botoes-card {
         display: flex;
         gap: 10px;
@@ -160,9 +122,81 @@
     }
 </style>
 
+
 <div id="app">
 
     <h1>Galeria de Imagens</h1>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <h5>Filtros</h5>
+
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+
+                <input
+                    class="form-control"
+                    placeholder="ID"
+                    v-model="filtros.id">
+
+
+                <input
+                    class="form-control"
+                    placeholder="Cultura"
+                    v-model="filtros.cultura">
+
+
+                <input
+                    class="form-control"
+                    placeholder="Cidade"
+                    v-model="filtros.cidade">
+
+
+                <select
+                    class="form-control"
+                    v-model="filtros.agente">
+
+                    <option value="">Agente</option>
+
+                    <option
+                        v-for="agente in agentes"
+                        :key="agente.id"
+                        :value="agente.id">
+
+                        @{{ agente.nome }}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div style="margin-top:10px;display:flex;gap:10px">
+
+                <button
+                    class="btn btn-primary"
+                    @click="buscar">
+
+                    Buscar
+
+                </button>
+
+                <button
+                    class="btn btn-secondary"
+                    @click="limparFiltros">
+
+                    Limpar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     <div class="grid-imagens">
 
@@ -173,26 +207,81 @@
                 :src="'https://croppen.org/storage/' + img.caminho">
 
             <div>ID: @{{ img.id }}</div>
+
             <div class="input-group input-group-static mb-4">
                 <label>Cultura</label>
-                <input type="text" v-model="img.cultura" name="razao_social" id="razao_social" class="form-control">
+                <input type="text" v-model="img.cultura" class="form-control">
             </div>
-            <div class="input-group input-group-static mb-4">
-                <label>Doença</label>
-                <input type="text" v-model="img.doenca" name="razao_social" id="razao_social" class="form-control">
-            </div>
+
             <div class="input-group input-group-static mb-4">
                 <label>Cidade</label>
-                <input type="text" v-model="img.cidade" name="razao_social" id="razao_social" class="form-control">
+                <input type="text" v-model="img.cidade" class="form-control">
+            </div>
+
+            <div class="mb-3">
+
+                <label>Agente</label>
+
+                <div style="display:flex;gap:6px">
+
+                    <select class="form-control" v-model="img.agenteSelecionado" style="flex:1">
+
+                        <option value="">Selecione</option>
+
+                        <option
+                            v-for="agente in agentes"
+                            :key="agente.id"
+                            :value="agente.id">
+
+                            @{{ agente.nome }}
+
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="btn btn-success"
+                        @click="adicionarAgente(img)">
+
+                        +
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:10px">
+
+                <div
+                    v-for="agente in img.agentesLista"
+                    :key="agente.id"
+                    style="display:flex;justify-content:space-between;align-items:center;background:#f3f3f3;padding:6px;border-radius:4px;margin-bottom:4px">
+
+                    <span>@{{ agente.nome }}</span>
+
+                    <button
+                        class="btn btn-sm btn-danger"
+                        @click="removerAgente(img, agente.id)">
+
+                        x
+
+                    </button>
+
+                </div>
+
             </div>
 
             <div class="botoes-card">
                 <button class="btn btn-info btn-sm" @click="salvar(img)">Salvar</button>
                 <button class="btn btn-danger btn-sm" @click="deletar(img)">Deletar</button>
             </div>
+
         </div>
 
     </div>
+
 
     <div class="paginacao">
 
@@ -215,8 +304,6 @@
     </div>
 
 
-    <!-- MODAL -->
-
     <div v-if="imagemSelecionada" class="modal" @click="fecharImagem">
 
         <div class="modal-content" @click.stop>
@@ -230,18 +317,20 @@
             </div>
 
             <div class="imagem-container">
+
                 <img
                     :src="'https://croppen.org/storage/' + imagemSelecionada.caminho"
                     :style="{ transform: 'scale(' + zoom + ')' }"
                     class="imagem-modal">
+
             </div>
 
         </div>
 
     </div>
 
-
 </div>
+
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -254,60 +343,173 @@
     createApp({
 
         data() {
+
             return {
+
                 imagens: {
                     data: []
                 },
+
+                agentes: [],
+
                 imagemSelecionada: null,
-                zoom: 1
+
+                zoom: 1,
+                filtros: {
+                    id: '',
+                    cultura: '',
+                    doenca: '',
+                    cidade: '',
+                    agente: ''
+                }
             }
+
         },
 
         mounted() {
+
+            this.carregarAgentes()
+
             this.carregarImagens()
+
         },
 
         methods: {
 
-            zoomIn() {
-                this.zoom += 0.2
-            },
 
-            zoomOut() {
-                if (this.zoom > 0.4) {
-                    this.zoom -= 0.2
+            async carregarAgentes() {
+
+                try {
+
+                    let response = await axios.get('/api/agentes')
+
+                    this.agentes = response.data.data
+
+                } catch (e) {
+
+                    console.log("Erro ao carregar agentes", e)
+
                 }
+
             },
 
-            resetZoom() {
-                this.zoom = 1
-            },
-
-            abrirImagem(img) {
-                this.imagemSelecionada = img
-                this.zoom = 1
-            },
-
-            fecharImagem() {
-                this.imagemSelecionada = null
-            },
 
             async carregarImagens(page = 1) {
 
-                let response = await axios.get('https://croppen.org/api/imagens?page=' + page)
+                let params = {
+                    page: page,
+                    id: this.filtros.id,
+                    cultura: this.filtros.cultura,
+                    doenca: this.filtros.doenca,
+                    cidade: this.filtros.cidade,
+                    agente: this.filtros.agente
+                }
 
-                this.imagens = response.data.data
+                let response = await axios.get('/api/imagens', {
+                    params
+                })
+
+                this.imagens = response.data
+
+                this.imagens.data.forEach(img => {
+
+                    img.agenteSelecionado = ""
+
+                    img.agentesLista = img.agentes ? [...img.agentes] : []
+
+                })
 
             },
+
+            buscar() {
+
+                this.carregarImagens()
+
+            },
+            limparFiltros() {
+
+                this.filtros = {
+                    id: '',
+                    cultura: '',
+                    doenca: '',
+                    cidade: '',
+                    agente: ''
+                }
+
+                this.carregarImagens()
+
+            },
+
+            adicionarAgente(img) {
+
+                if (!img.agenteSelecionado) return
+
+                let agente = this.agentes.find(a => a.id == img.agenteSelecionado)
+
+                if (!agente) return
+
+                // evitar duplicado
+                let existe = img.agentesLista.find(a => a.id == agente.id)
+
+                if (!existe) {
+
+                    img.agentesLista.push(agente)
+
+                }
+
+                img.agenteSelecionado = ""
+
+            },
+            zoomIn() {
+
+                this.zoom += 0.2
+
+            },
+
+            zoomOut() {
+
+                if (this.zoom > 0.4) {
+
+                    this.zoom -= 0.2
+
+                }
+
+            },
+
+            resetZoom() {
+
+                this.zoom = 1
+
+            },
+
+            abrirImagem(img) {
+
+                this.imagemSelecionada = img
+
+                this.zoom = 1
+
+            },
+
+            fecharImagem() {
+
+                this.imagemSelecionada = null
+
+            },
+
 
             async salvar(img) {
 
                 try {
 
-                    axios.put('/api/imagens/' + img.id, {
+                    let agentesIds = img.agentesLista.map(a => a.id)
+
+                    await axios.put('/api/imagens/' + img.id, {
+
                         cultura: img.cultura,
                         doenca: img.doenca,
-                        cidade: img.cidade
+                        cidade: img.cidade,
+                        agentes: agentesIds
+
                     })
 
                     alert("Salvo com sucesso")
@@ -315,24 +517,28 @@
                 } catch (e) {
 
                     console.log(e)
+
                     alert("Erro ao salvar")
 
                 }
 
             },
+
+
             async deletar(img) {
 
                 if (!confirm("Deseja realmente deletar esta imagem?")) {
+
                     return
+
                 }
 
                 try {
 
-                    await axios.delete('https://croppen.org/api/imagens/' + img.id)
+                    await axios.delete('/api/imagens/' + img.id)
 
                     alert("Imagem deletada")
 
-                    // remove da lista sem recarregar
                     this.imagens.data = this.imagens.data.filter(i => i.id !== img.id)
 
                 } catch (e) {
@@ -343,8 +549,16 @@
 
                 }
 
+            },
+            removerAgente(img, agenteId) {
+
+                img.agentesLista = img.agentesLista.filter(a => a.id !== agenteId)
+
             }
-        }
+
+        },
+
+
 
     }).mount('#app')
 </script>
